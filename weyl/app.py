@@ -260,12 +260,9 @@ colorbar.set_label(
     "Temperature",
     color="white",
 )
- plt.tight_layout()
- st.tight_layout(
-  fig,
-  use_container_width=True,
- )
- plt.close(fig)
+plt.tight_layout()
+st.pyplot(fig, use_container_width=True)
+plt.close(fig)
  #------------------
  #SCIENTIFIC VALIDATION
  #------------------
