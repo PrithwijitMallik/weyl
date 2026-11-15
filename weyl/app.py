@@ -263,54 +263,59 @@ colorbar.set_label(
 plt.tight_layout()
 st.pyplot(fig, use_container_width=True)
 plt.close(fig)
- #------------------
- #SCIENTIFIC VALIDATION
- #------------------
-  
-if initial_condition == "Fourier Mode":
-    # Fourier-mode validation
-    ...
-else:
-    # Gaussian diagnostics
-    ...
+#------------------
+# SCIENTIFIC VALIDATION
+#------------------
 
-# DATA EXPORT
 st.divider()
-st.subheader("Export Results")
-   result["X"],
-   result["Y"],
-   current_time,
-   alpha,
-  error = calculate_rms_error(
-   current_frame,
-   analytical,
-  )
-  left, right = st.colums(2)
-  left.metric(
-   "RMS numerical error",
-   f"{error:.6e}",
-  )
-  right.metric(
-   "Analytical reference",
-    "Available",
-  )
-  st.info(
-   "The Fourier-mode solution is compared"
-   "against its known analytical solution"
-  )
- else:
-  left, right= st.columns(2)
-  left.metric(
-   "Maximum temparature",
-   f"{np.mean(current_frame):.6f}",
-  )
-  st.info(
-   "The Gaussian initial condition is evolved"
-   "under homogeneous Dirichlet boundaries."
-  )
-  #-----------------------------
-  # DATA EXPORT
-  #-----------------------------
+st.subheader("Numerical Diagnostics")
+
+if initial_condition == "Fourier Mode":
+    analytical = analytical_fourier_solution(
+        result["X"],
+        result["Y"],
+        current_time,
+        alpha,
+    )
+
+    error = calculate_rms_error(
+        current_frame,
+        analytical,
+    )
+
+    left, right = st.columns(2)
+
+    left.metric(
+        "RMS numerical error",
+        f"{error:.6e}",
+    )
+
+    right.metric(
+        "Analytical reference",
+        "Available",
+    )
+
+    st.info(
+        "The Fourier-mode solution is compared "
+        "against its known analytical solution."
+    )
+
+else:
+    left, right = st.columns(2)
+
+    left.metric(
+        "Maximum temperature",
+        f"{np.max(current_frame):.6f}",
+    )
+
+    st.info(
+        "The Gaussian initial condition is evolved "
+        "under homogeneous Dirichlet boundaries."
+    )
+ #------------------
+# DATA EXPORT
+#------------------
+
 st.divider()
 st.subheader("Export Results")
 
@@ -342,10 +347,11 @@ st.download_button(
     mime="text/csv",
 )
 
-  st.caption(
-   "Weyl v0.1.0 | Early stage reserch prototype"
-  )
-  st.caption(
-   "Numerical results should be independently"
-   "validated before scientific use."
-  )
+ st.caption(
+    "Weyl v0.1.0 | Early stage research prototype"
+)
+
+st.caption(
+    "Numerical results should be independently "
+    "validated before scientific use."
+)
