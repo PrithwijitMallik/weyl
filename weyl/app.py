@@ -70,7 +70,7 @@ st.markdown (
     <div class="weyl-subtitle">
     An accessible computational environment for independent scientific research.
     </div>
-    '''''',
+    '''
     unsafe_allow_html=True,
 )
 st.write('---')
