@@ -168,8 +168,9 @@ def run_simulation(
   snapshots=number_of_snapshots,
  )
 with st.spinner("Computing numerical solution..."):
-
-result=run_simulation(
+    result = run_simulation(
+        # Keep your existing function arguments here
+    )
  grid_size,
  grid_size,
  alpha,
