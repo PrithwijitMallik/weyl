@@ -254,11 +254,12 @@ colorbar = fig.colorbar(
     ax=ax,
     fraction=0.046,
     pad=0.04,
-  )
- colorbar.set_label(
-  "Temparature",
-  color="white",
-  )
+)
+
+colorbar.set_label(
+    "Temperature",
+    color="white",
+)
  plt.tight_layout()
  st.tight_layout(
   fig,
