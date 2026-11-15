@@ -35,29 +35,31 @@ st.set_page_config(
 st.markdown(
     '''
     <style>
-    stApp {background-color: #0b1120;
-            color: #e5edf7;
+    .stApp {
+        background-color: #0b1120;
+        color: #e5edf7;
     }
- [data-testid="stSidebar"] {
-    background-color: #1a2b42;
- }
+
+    [data-testid="stSidebar"] {
+        background-color: #1a2b42;
+    }
 
     .weyl-title {
-        font-size: 3 rem;
-        color: bold;
-        letter-spacing: 0.1 rem;
+        font-size: 3rem;
         color: #f1f5f9;
+        letter-spacing: 0.1rem;
+        font-weight: bold;
     }
-.section-label {
-    font-size: 1.5 rem;
-    color: #38bdf8:
-    letter-spacing: 0.05 rem;
-    font weight: bold;
-}
 
-</style>
-'''''',
-unsafe_allow_html=True
+    .section-label {
+        font-size: 1.5rem;
+        color: #38bdf8;
+        letter-spacing: 0.05rem;
+        font-weight: bold;
+    }
+    </style>
+    ''',
+    unsafe_allow_html=True,
 )
 
 #-----------------
