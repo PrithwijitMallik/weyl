@@ -144,7 +144,7 @@ st.sidebar.caption(
  #-----------------
  #COMPUTATIONAL
  #-----------------
-@st.cache_data(show_spinnner=False)
+@st.cache_data(show_spinner=False)
 def run_simulation(
  nx,
  ny,
