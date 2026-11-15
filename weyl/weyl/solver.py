@@ -156,33 +156,36 @@ for step in range (1, steps +1):
             "dy":dy,
             "rx":rx,
             "ry":ry,
-            "stabilitty_number":stability_number,
-            "älpha": alpha,
-            "total_time": total_time,
-            "ïnitial_condition": initial_condition,
+           "stability_number": stability_number,
+            "alpha": alpha,
+           "initial_condition": initial_condition,,
 }
 
 def analytical_fourier_solution(
-        X,
-        Y,
-        time,
-        alpha,
+    X,
+    Y,
+    time,
+    alpha,
 ):
-    """"""""""""
-    Exact solution for a single Fourier mode
-    with homogeneous Dirrichlet boundaries.
-    """"""""""""
+    """
+    Exact solution for a single Fourier mode.
+    """
 
+    spatial_mode = (
+        np.sin(np.pi * X)
+        * np.sin(np.pi * Y)
+    )
+
+    decay = np.exp(
+        -2 * np.pi**2 * alpha * time
+    )
+
+    return spatial_mode * decay
     spatial_mode= (
         np.sin(np.pi*X)
         *np.sin(np.pi*Y)
     )
-    decay = np.exp(
-        -2*np.pi**2 * alpha * time
-        )
-
-return spatial_mode*decay
-
+    
 def calculate_rms_error(numerical,
                         analytical,
                          ):
