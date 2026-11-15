@@ -5,7 +5,7 @@ from typing import Any;
 
 WEYL - "Scientific Computing Environment"
 
-version "0.1.0" 
+version 0.1.0
 Initial Module : ("2-dimensional Heat Equation Solver"); 
 import streamlit as st;
 import numpy as np;
