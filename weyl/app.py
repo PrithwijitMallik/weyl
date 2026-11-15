@@ -185,7 +185,7 @@ col1.metric(
  )
 col2.metric(
  "Time steps",
- f"{result['steps']:,}",
+f"{result['n_steps']:,}",
 )
 col3.metric(
  "Time step (Δt)",
