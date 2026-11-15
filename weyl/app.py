@@ -169,15 +169,13 @@ def run_simulation(
  )
 with st.spinner("Computing numerical solution..."):
     result = run_simulation(
-        # Keep your existing function arguments here
+        grid_size,
+        grid_size,
+        alpha,
+        total_time,
+        initial_condition,
+        snapshots,
     )
- grid_size,
- grid_size,
- alpha,
- total_time,
- initial_condition,
- snapshots,
-)
 
 #------------
 #RESULTS
