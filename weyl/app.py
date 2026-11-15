@@ -12,8 +12,8 @@ Initial Module: 2-dimensional Heat Equation Solver
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-from weyl.solver import (
-    solve_heat_equation,
+weyl/__init__.py,
+from .solver import solve_heat_equation,
     analytical_fourier_solution,
     calculate_rms_error,
 )
