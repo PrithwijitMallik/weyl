@@ -167,7 +167,7 @@ def run_simulation(
   initial_condition=condition,
   snapshots=number_of_snapshots,
  )
-with st.spinner ("Computing numerical solution...")
+with st.spinner("Computing numerical solution..."):
 
 result=run_simulation(
  grid_size,
