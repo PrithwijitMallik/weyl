@@ -203,7 +203,7 @@ col4.metric(
 st.subheader("Simulation Output")
 st.caption(
         "Explore the evolution of the temparature"
-        "distribution across the spatial domain." 
+        " distribution across the spatial domain." 
 )
 frame_index = st.slider(
     "Simulation time frame",
