@@ -230,7 +230,7 @@ plot = ax.imshow(
     aspect="equal",
 )
 ax.set_xlabel(
- "ÿ position",
+ "y position",
  color="white",
 )
 ax.set_title(
