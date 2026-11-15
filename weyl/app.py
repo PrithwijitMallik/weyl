@@ -106,11 +106,10 @@ alpha = st.sidebar.slider(
 
 grid_size = st.sidebar.slider(
     "Spatial Resolution",
-    options=[31, 51, 101, 201, 301, 401, 501],
     min_value=31,
-   max_value=501,
-value=101,
-step=10
+    max_value=501,
+    value=101,
+    step=10,
 )
 
 total_time = st.sidebar.slider(
