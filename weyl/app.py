@@ -233,7 +233,7 @@ ax.set_xlabel(
  "ÿ position",
  color="white",
 )
-ax.set_tittle(
+ax.set_title(
  f"Temparature Distribution | t={current_time:.4f}",
  color="white",
  pad=15,
