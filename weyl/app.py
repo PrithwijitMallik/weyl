@@ -97,7 +97,7 @@ st.caption(
 #SIDEBAR: COMPUTATIONAL PARAMETERS
 #-----------------
 
-st.sidebar.title("WEYL") IDEBAR
+st.sidebar.title("WEYL")
 st.sidebar.caption("Computational Workbench")
 
 alpha = st.sidebar(
