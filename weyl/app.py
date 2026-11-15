@@ -311,31 +311,36 @@ st.subheader("Export Results")
   #-----------------------------
   # DATA EXPORT
   #-----------------------------
-  st.divider()
-  st.subheader=("Export Results")
-  csv_data=np.column_stack(
-  (
-   result["X"].ravel(),
-   result["Y"].ravel(),
-   current_frame.ravel(),
+st.divider()
+st.subheader("Export Results")
+
+csv_data = np.column_stack(
+    (
+        result["X"].ravel(),
+        result["Y"].ravel(),
+        current_frame.ravel(),
     )
-  )
-  csv_header="x,y,temparature"
-  import io
-  buffer=io.StringIO()
-  np.savetxt(
-   buffer,
-   csv_data,
-   delimiter=",",
-   header=csv_header,
-   comments="",
-  )
-  st.download_button(
-   label="Download simulation data (CSV)",
-   data=buffer.getvalue(),
-   file_name="weyl_simulation.csv",
-   mime="text/csv",
-  )
+)
+
+csv_header = "x,y,temperature"
+
+import io
+buffer = io.StringIO()
+
+np.savetxt(
+    buffer,
+    csv_data,
+    delimiter=",",
+    header=csv_header,
+    comments="",
+)
+
+st.download_button(
+    label="Download simulation data (CSV)",
+    data=buffer.getvalue(),
+    file_name="weyl_simulation.csv",
+    mime="text/csv",
+)
 
   st.caption(
    "Weyl v0.1.0 | Early stage reserch prototype"
