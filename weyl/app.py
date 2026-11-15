@@ -1,8 +1,3 @@
-''''''
-from marshal import version;
-from modulefinder import Module;
-from typing import Any;
-
 """
 WEYL - Scientific Computing Environment
 Version: 0.1.0
@@ -12,8 +7,9 @@ Initial Module: 2-dimensional Heat Equation Solver
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-weyl/__init__.py,(
-from .solver import solve_heat_equation,
+
+from weyl.solver import (
+    solve_heat_equation,
     analytical_fourier_solution,
     calculate_rms_error,
 )
