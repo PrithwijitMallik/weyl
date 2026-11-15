@@ -1,4 +1,2 @@
-streamlit>=1.40
-numppy>=1.26
-matplotlib>=3.8
-pytest>=8.0
+numpy
+matplotlib
