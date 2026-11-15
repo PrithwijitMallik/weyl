@@ -267,15 +267,20 @@ plt.close(fig)
  #SCIENTIFIC VALIDATION
  #------------------
   
- st.divider()
- st.subheader("Numerical Diagnostics")
- if initial_condition == "Fourier Mode":
-  analytical = analytical_fourier_solution(
+if initial_condition == "Fourier Mode":
+    # Fourier-mode validation
+    ...
+else:
+    # Gaussian diagnostics
+    ...
+
+# DATA EXPORT
+st.divider()
+st.subheader("Export Results")
    result["X"],
    result["Y"],
    current_time,
    alpha,
-  ) 
   error = calculate_rms_error(
    current_frame,
    analytical,
