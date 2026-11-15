@@ -1,165 +1,208 @@
-""""
+
+"""
 Weyl Numerical Solver
 
-Version 0.1.0
-Two Dimentional Heat Equation Solver
+Version: 0.1.0
+Two-Dimensional Heat Equation Solver
 
 Method:
 Explicit Finite Difference Method (FTCS)
 
 Boundary Conditions:
-Homogenous Dirichlet boundaries (zero)
+Homogeneous Dirichlet boundaries (zero temperature).
 """
 
 import numpy as np
+
+
 def solve_heat_equation(
     nx=61,
     ny=61,
-    alpha=.01,
-    total_time=.01, 
+    alpha=0.01,
+    total_time=0.01,
     initial_condition="Gaussian",
     snapshots=30,
 ):
     """
-   Solve the two-dimensional heat equation.
+    Solve the two-dimensional heat equation using FTCS.
 
-   Parameters
-   ----------
-   nx, ny : int
-       Number of grid points.
+    Parameters
+    ----------
+    nx, ny : int
+        Number of grid points in the x and y directions.
 
-       alpha : float
-       Thermal diffusivity. 
+    alpha : float
+        Thermal diffusivity.
 
     total_time : float
-    Total simulation time.
+        Total simulation time.
 
     initial_condition : str
-    Gaussian or Fourier mode.
-    
+        "Gaussian" or "Fourier Mode".
+
     snapshots : int
-    Number of requested output intervals.
+        Number of requested output snapshots.
 
     Returns
     -------
     dict
-    Coordinates, simulation frames, timing
-    information and numerical diagnostics.
-    
+        Coordinates, solution snapshots, times,
+        and numerical stability information.
     """
 
-    if nx < 5 or ny < 5:
-        raise ValueError("Grid size must be at least 5x5.")
+    # Validate inputs
+    if nx < 3 or ny < 3:
+        raise ValueError("Grid dimensions must be at least 3.")
+
     if alpha <= 0:
         raise ValueError("Thermal diffusivity must be positive.")
+
     if total_time <= 0:
         raise ValueError("Total simulation time must be positive.")
-    if snapshots < 1:   
-        raise ValueError("Number of snapshots must be at least 1.")
 
-    # Spatial domain
+    if snapshots < 2:
+        raise ValueError("At least 2 snapshots are required.")
+
+    # Create spatial grid
     x = np.linspace(0.0, 1.0, nx)
     y = np.linspace(0.0, 1.0, ny)
 
     dx = x[1] - x[0]
-    dy = y[1] - y[0]    
+    dy = y[1] - y[0]
 
-    X,Y = np.meshgrid(x,y)
+    X, Y = np.meshgrid(x, y)
 
-    #Initial Temparature Distribution
+    # Set initial temperature distribution
     if initial_condition == "Gaussian":
-        sigma = 0.12 
-        u = np.exp
-        (
+
+        sigma = 0.12
+
+        U = np.exp(
             -(
-             (X-.05)**2
-            +(Y-.05)**2
-            )/(2*sigma**2) 
-        )
-        if initial_condition == "Fourier Mode":
-            u=(
-            np.sin(np.pi*X)
-                *np.sin(np.pi*Y)
+                (X - 0.5) ** 2
+                + (Y - 0.5) ** 2
             )
+            / (2 * sigma ** 2)
+        )
+
+    elif initial_condition == "Fourier Mode":
+
+        U = (
+            np.sin(np.pi * X)
+            * np.sin(np.pi * Y)
+        )
+
     else:
-        raise ValueError("Invalid initial condition. Choose 'Gaussian' or 'Fourier Mode'.")
-    #Enforce boundary conditions
-    u[0,:] = 0.0
-    u[-1,:] = 0.0
-    u[:,0] = 0.0
-    u[:,-1] = 0.0
+        raise ValueError(
+            "Initial condition must be Gaussian or Fourier Mode."
+        )
 
-    #Numerical Stability Condition
-    inverse_spacing = (
-        1.0 / dx**2 + 1.0 / dy**2
-    )
-    maximum_dt = (
-       0.45 / (alpha* inverse_spacing )
-    )
-#Automatically select a stable timestep
-steps = max(
-    1,
-    int(np.ceil(total_time / maximum_dt))
-)
-dt = total_time / steps
-rx= alpha * dt / dx**2
-ry= alpha * dt / dy**2
-stability_number = rx + ry
+    # Enforce zero-temperature boundaries
+    U[0, :] = 0.0
+    U[-1, :] = 0.0
+    U[:, 0] = 0.0
+    U[:, -1] = 0.0
 
-#Select snapshot positions
-snapshot_steps = np.unique (
-    np.linspace(
+    # Calculate the maximum stable time step
+    dt_stable = 0.5 / (
+        alpha * (1.0 / dx**2 + 1.0 / dy**2)
+    )
+
+    # Select a stable time step with a safety factor
+    dt = 0.9 * dt_stable
+
+    # Determine number of time steps
+    n_steps = max(
+        int(np.ceil(total_time / dt)),
+        snapshots - 1,
+    )
+
+    # Adjust dt to reach the requested final time exactly
+    dt = total_time / n_steps
+
+    # Calculate FTCS stability parameters
+    rx = alpha * dt / dx**2
+    ry = alpha * dt / dy**2
+
+    stability_number = rx + ry
+
+    # Final stability check
+    if stability_number > 0.5:
+        raise ValueError("Numerical stability condition violated.")
+
+    # Select snapshot time indices
+    snapshot_indices = np.linspace(
         0,
-        steps,
-        min (snapshots + 1, steps + 1),
+        n_steps,
+        snapshots,
         dtype=int,
     )
-)
-frmaes = [u.copy()]
-times= [0.0]
-next_snapshot=1
 
-#Time integration
-for step in range (1, steps +1):
+    snapshot_indices = np.unique(snapshot_indices)
 
-    old= u 
-    new= old.copy()
-    new[1:-1, 1:-1]=(
-        old[1:-1, 1:-1]
-        + rx* (
-            old [2:, 1:-1]
-            -2 * old[1:-1, 1:-1]
-            +old [1:-1, :-2]
+    saved_snapshots = []
+    saved_times = []
+
+    # Save initial condition
+    saved_snapshots.append(U.copy())
+    saved_times.append(0.0)
+
+    # Time integration
+    for step in range(1, n_steps + 1):
+
+        U_new = U.copy()
+
+        # Explicit FTCS update
+        U_new[1:-1, 1:-1] = (
+            U[1:-1, 1:-1]
+            + rx * (
+                U[1:-1, 2:]
+                - 2.0 * U[1:-1, 1:-1]
+                + U[1:-1, :-2]
+            )
+            + ry * (
+                U[2:, 1:-1]
+                - 2.0 * U[1:-1, 1:-1]
+                + U[:-2, 1:-1]
+            )
         )
-    )
-    u = new
-    #store requested snapshots
-    if (
-        next_snapshot< len(snapshot_steps)
-        and step == snapshot_steps[next_snapshot]
 
-    ):
-        frames.append(u.copy())
-        times.append(step*dt)
-        next_snapshot += 1
+        # Maintain zero-temperature boundaries
+        U_new[0, :] = 0.0
+        U_new[-1, :] = 0.0
+        U_new[:, 0] = 0.0
+        U_new[:, -1] = 0.0
 
-        return {
-            "x":x,
-            "ÿ":y,
-            "X": X,
-            "Y": Y,
-            "frmaes": np.array(frames),
-            "times": np.array(times),
-            "dt":dt,
-            "steps":steps,
-            "dx":dx,
-            "dy":dy,
-            "rx":rx,
-            "ry":ry,
-           "stability_number": stability_number,
-            "alpha": alpha,
-           "initial_condition": initial_condition,,
-}
+        U = U_new
+
+        # Save requested snapshots
+        if step in snapshot_indices:
+            saved_snapshots.append(U.copy())
+            saved_times.append(step * dt)
+
+    # Convert saved data to NumPy arrays
+    saved_snapshots = np.array(saved_snapshots)
+    saved_times = np.array(saved_times)
+
+    return {
+        "X": X,
+        "Y": Y,
+        "snapshots": saved_snapshots,
+        "frames": saved_snapshots,
+        "times": saved_times,
+        "final_frame": U.copy(),
+        "dt": dt,
+        "dx": dx,
+        "dy": dy,
+        "rx": rx,
+        "ry": ry,
+        "stability_number": stability_number,
+        "alpha": alpha,
+        "total_time": total_time,
+        "initial_condition": initial_condition,
+        "n_steps": n_steps,
+    }
+
 
 def analytical_fourier_solution(
     X,
@@ -169,6 +212,8 @@ def analytical_fourier_solution(
 ):
     """
     Exact solution for a single Fourier mode.
+
+    Assumes a unit square with zero-temperature boundaries.
     """
 
     spatial_mode = (
@@ -177,24 +222,32 @@ def analytical_fourier_solution(
     )
 
     decay = np.exp(
-        -2 * np.pi**2 * alpha * time
+        -2.0 * np.pi**2 * alpha * time
     )
 
     return spatial_mode * decay
-    spatial_mode= (
-        np.sin(np.pi*X)
-        *np.sin(np.pi*Y)
-    )
-    
-def calculate_rms_error(numerical,
-                        analytical,
-                         ):
-    """"""""""""""""""
-    Calculate root mean square error.
-    """"""""""""""""""
-    difference= numerical - analytical
-     
-     return float(
+
+
+def calculate_rms_error(
+    numerical,
+    analytical,
+):
+    """
+    Calculate the root mean square difference
+    between numerical and analytical solutions.
+    """
+
+    numerical = np.asarray(numerical)
+    analytical = np.asarray(analytical)
+
+    if numerical.shape != analytical.shape:
+        raise ValueError(
+            "Numerical and analytical arrays must have matching shapes."
+        )
+
+    difference = numerical - analytical
+
+    return float(
         np.sqrt(np.mean(difference**2))
     )
-    
+
