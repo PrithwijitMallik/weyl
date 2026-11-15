@@ -268,7 +268,7 @@ plt.close(fig)
  #------------------
   
  st.divider()
- st.subheader("Numerical Diagnostics")""
+ st.subheader("Numerical Diagnostics")
  if initial_condition == "Fourier Mode":
   analytical = analytical_fourier_solution(
    result["X"],
