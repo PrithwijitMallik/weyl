@@ -63,30 +63,36 @@ st.markdown(
 )
 
 #-----------------
-#Header
+# HEADER
 #-----------------
-st.markdown('<div class="weyl-title">WEYL.</div>',
-             unsafe_allow_html=True,
-             )
-
-st.markdown (
-    ''''''
-    <div class="weyl-subtitle">
-    An accessible computational environment for independent scientific research.
-    </div>
-    '''
+st.markdown(
+    '<div class="weyl-title">WEYL.</div>',
     unsafe_allow_html=True,
 )
+
+st.markdown(
+    '''
+    <div class="weyl-subtitle">
+        An accessible computational environment for independent scientific research.
+    </div>
+    ''',
+    unsafe_allow_html=True,
+)
+
 st.write('---')
+
 st.markdown(
     '<div class="section-label">'
     'COMPUTATIONAL PHYSICS / MODULE 001'
-    '</div>', 
-             unsafe_allow_html=True,
- )
+    '</div>',
+    unsafe_allow_html=True,
+)
+
 st.title("Two-Dimensional Heat Equation Solver")
-st.caption("Numerical solution using an explicit"
-           "finite difference method.")
+st.caption(
+    "Numerical solution using an explicit "
+    "finite difference method."
+)
 #-----------------
 #SIDEBAR: COMPUTATIONAL PARAMETERS
 #-----------------
