@@ -221,7 +221,7 @@ plot=ax.imshow(
  origin="lower",
  extent=[0,1,0,1],
  cmap="ïnferno",
- intercolor="bilinear"",
+ intercolor="bilinear",
  aspect="ëqual",
 )
 ax.set_xlabel(
