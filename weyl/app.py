@@ -301,6 +301,7 @@ else:
     left.metric(
         "Maximum temperature",
         f"{np.max(current_frame):.6f}",
+    )
     right.metric(
         "Minimum temparature",
         f"{np.min(current_frame):.6f}",
