@@ -96,7 +96,7 @@ st.caption(
 st.sidebar.title("WEYL")
 st.sidebar.caption("Computational Workbench")
 
-alpha = st.sidebar(
+alpha = st.sidebar.slider(
     "Thermal Diffusivity (alpha)",
     min_value=0.01,
     max_value=0.20,
