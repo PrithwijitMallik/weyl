@@ -30,7 +30,7 @@ st.set_page_config(
 #VISUAL IDENTITY
 #-----------------
 
-st.markdow(
+st.markdown(
     '''''''
     <style>
     stApp {background-color: #0b1120;
