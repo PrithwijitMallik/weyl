@@ -245,13 +245,15 @@ ax.set_tittle(
 )
 
 ax.tick_params(colors="white")
+
 for spine in ax.spines.values():
- spine.set_color("#334155")
- colorbar=fig.colorbar(
-  plot,
-  ax=ax
-  fraction=0.046,
-  pad=0.04,
+    spine.set_color("#334155")
+
+colorbar = fig.colorbar(
+    plot,
+    ax=ax,
+    fraction=0.046,
+    pad=0.04,
   )
  colorbar.set_label(
   "Temparature",
