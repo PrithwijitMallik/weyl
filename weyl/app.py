@@ -112,9 +112,9 @@ grid_size = st.sidebar.slider(
     "Spatial Resolution",
     options=[31, 51, 101, 201, 301, 401, 501],
     min_value=31,
-    max_value=501,
-    value=101,
-    step=10
+   max_value=501,
+value=101,
+step=10
 )
 
 total_time = st.sidebar.slider(
@@ -124,13 +124,14 @@ total_time = st.sidebar.slider(
     value=1.0,
     step=0.1
 )
- snapshots = st.sidebar.slider(
+
+snapshots = st.sidebar.slider(
     "Number of Snapshots",
     min_value=5,
     max_value=50,
     value=30,
     step=1
- )
+)
 
 initial_condition = st.sidebar.selectbox(
     "Initial Condition",
