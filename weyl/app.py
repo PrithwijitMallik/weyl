@@ -347,7 +347,7 @@ st.download_button(
     mime="text/csv",
 )
 
- st.caption(
+st.caption(
     "Weyl v0.1.0 | Early stage research prototype"
 )
 
