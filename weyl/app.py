@@ -175,7 +175,7 @@ st.divider()
 col1,col2,col3,col4=st.colums(4)
 
 col1.metric(
- "Grid resolution"",
+ "Grid resolution",
  f"{grid_size} × {grid_size}"
  )
 col2.metric(
