@@ -217,17 +217,17 @@ current_time=result["times"][frame_index]
 #----------
 # HEATMAP
 #----------
-fig, ax=plt.subplots(figsize=(9,6))
+fig, ax = plt.subplots(figsize=(9, 6))
 fig.patch.set_facecolor("#0b1120")
 ax.set_facecolor("#0b1120")
 
-plot=ax.imshow(
- current_frame,
- origin="lower",
- extent=[0,1,0,1],
- cmap="ïnferno",
- intercolor="bilinear",
- aspect="ëqual",
+plot = ax.imshow(
+    current_frame,
+    origin="lower",
+    extent=[0, 1, 0, 1],
+    cmap="inferno",
+    interpolation="bilinear",
+    aspect="equal",
 )
 ax.set_xlabel(
  "ÿ position",
