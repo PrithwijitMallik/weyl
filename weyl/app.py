@@ -205,11 +205,11 @@ st.caption(
         "Explore the evolution of the temparature"
         "distribution across the spatial domain." 
 )
-frame_index=st.slider(
- "Simulation time frame",
- min_value=0,
- max_value=len(result["frames"])-1,
- value=0,
+frame_index = st.slider(
+    "Simulation time frame",
+    min_value=0,
+    max_value=len(result["frames"])-1,
+    value=len(result["frames"])-1,
 )
 current_frame=result["frames"][frame_index]
 current_time=result["times"][frame_index]
