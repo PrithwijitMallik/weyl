@@ -217,7 +217,7 @@ current_time=result["times"][frame_index]
 #----------
 # HEATMAP
 #----------
-fig, ax = plt.subplots(figsize=(9, 6))
+fig, ax = plt.subplots(figsize=(100, 6))
 fig.patch.set_facecolor("#0b1120")
 ax.set_facecolor("#0b1120")
 
