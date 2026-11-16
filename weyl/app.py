@@ -106,7 +106,7 @@ alpha = st.sidebar.slider(
 
 grid_size = st.sidebar.slider(
     "Spatial Resolution",
-    min_value=0,
+    min_value=1,
     max_value=1000,
     value=1,
     step=1,
