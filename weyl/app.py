@@ -62,7 +62,7 @@ st.markdown(
 # HEADER
 #-----------------
 st.markdown(
-    '<div class="weyl-title">WEYL.</div>',
+    '<div class="weyl-title">WEYL</div>',
     unsafe_allow_html=True,
 )
 
@@ -79,7 +79,7 @@ st.write('---')
 
 st.markdown(
     '<div class="section-label">'
-    'COMPUTATIONAL PHYSICS / MODULE 001'
+    'COMPUTATIONAL PHYSICS | MODULE 001'
     '</div>',
     unsafe_allow_html=True,
 )
@@ -99,16 +99,16 @@ st.sidebar.caption("Computational Workbench")
 alpha = st.sidebar.slider(
     "Thermal Diffusivity (alpha)",
     min_value=0.01,
-    max_value=0.20,
+    max_value=1.00,
     value=0.10,
     step=0.01,
 )
 
 grid_size = st.sidebar.slider(
     "Spatial Resolution",
-    min_value=31,
-    max_value=501,
-    value=101,
+    min_value=0,
+    max_value=999,
+    value=1,
     step=10,
 )
 
@@ -122,9 +122,9 @@ total_time = st.sidebar.slider(
 
 snapshots = st.sidebar.slider(
     "Number of Snapshots",
-    min_value=5,
-    max_value=50,
-    value=30,
+    min_value=1,
+    max_value=99,
+    value=1,
     step=1
 )
 
