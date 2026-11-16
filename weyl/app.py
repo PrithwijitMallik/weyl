@@ -100,30 +100,30 @@ alpha = st.sidebar.slider(
     "Thermal Diffusivity (alpha)",
     min_value=0.01,
     max_value=1.00,
-    value=0.10,
+    value=0.01,
     step=0.01,
 )
 
 grid_size = st.sidebar.slider(
     "Spatial Resolution",
     min_value=0,
-    max_value=999,
+    max_value=1000,
     value=1,
-    step=10,
+    step=1,
 )
 
 total_time = st.sidebar.slider(
     "Total Simulation Time",
     min_value=0.1,
     max_value=10.0,
-    value=0.10,
+    value=0.01,
     step=0.01,
 )
 
 snapshots = st.sidebar.slider(
     "Number of Snapshots",
     min_value=1,
-    max_value=99,
+    max_value=100,
     value=1,
     step=1
 )
