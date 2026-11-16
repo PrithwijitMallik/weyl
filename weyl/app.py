@@ -116,8 +116,8 @@ total_time = st.sidebar.slider(
     "Total Simulation Time",
     min_value=0.1,
     max_value=10.0,
-    value=1.0,
-    step=0.01
+    value=0.10,
+    step=0.01,
 )
 
 snapshots = st.sidebar.slider(
